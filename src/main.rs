@@ -11,7 +11,7 @@ mod triangle;
 struct Args {
     #[arg(short, long, help = "Print the parsed input")]
     echo_input: bool,
-    #[arg(required = true)]
+    #[arg(required = true, help = "Excess arguments (mod 3) will be ignored")]
     index_list: Vec<u32>,
 }
 
