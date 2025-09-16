@@ -104,3 +104,68 @@ fn icosahedron_cannot() {
     assert!(!output.status.success());
 }
 
+fn pentagonal_tessellator(v: [u32; 5]) -> [[u32; 9]; 5] {
+    [
+        [v[0], v[1], v[2], v[0], v[2], v[3], v[0], v[3], v[4]],
+        [v[0], v[1], v[2], v[0], v[2], v[4], v[2], v[3], v[4]],
+        [v[0], v[1], v[3], v[0], v[3], v[4], v[1], v[2], v[3]],
+        [v[0], v[1], v[4], v[1], v[2], v[3], v[1], v[3], v[4]],
+        [v[0], v[1], v[4], v[1], v[2], v[4], v[2], v[3], v[4]],
+    ]
+}
+
+#[test]
+#[ignore]
+fn dodecahedron_can_long() {
+    // duodecuply-nested loop, indentation removed for readability
+    for triangles01 in pentagonal_tessellator([0, 1, 3, 4, 2]) {
+    for triangles02 in pentagonal_tessellator([0, 5, 10, 6, 1]) {
+    for triangles03 in pentagonal_tessellator([0, 2, 7, 11, 5]) {
+    for triangles04 in pentagonal_tessellator([1, 6, 12, 8, 3]) {
+    for triangles05 in pentagonal_tessellator([2, 4, 9, 13, 7]) {
+    for triangles06 in pentagonal_tessellator([3, 8, 14, 9, 4]) {
+    for triangles07 in pentagonal_tessellator([5, 11, 16, 15, 10]) {
+    for triangles08 in pentagonal_tessellator([6, 10, 15, 17, 12]) {
+    for triangles09 in pentagonal_tessellator([7, 13, 18, 16, 11]) {
+    for triangles10 in pentagonal_tessellator([8, 12, 17, 19, 14]) {
+    for triangles11 in pentagonal_tessellator([9, 14, 19, 18, 13]) {
+    for triangles12 in pentagonal_tessellator([15, 16, 18, 19, 17]) {
+        let args: Vec<_> = triangles01.iter().map(|&i| format!("{i}"))
+            .chain(triangles02.iter().map(|&i| format!("{i}")))
+            .chain(triangles03.iter().map(|&i| format!("{i}")))
+            .chain(triangles04.iter().map(|&i| format!("{i}")))
+            .chain(triangles05.iter().map(|&i| format!("{i}")))
+            .chain(triangles06.iter().map(|&i| format!("{i}")))
+            .chain(triangles07.iter().map(|&i| format!("{i}")))
+            .chain(triangles08.iter().map(|&i| format!("{i}")))
+            .chain(triangles09.iter().map(|&i| format!("{i}")))
+            .chain(triangles10.iter().map(|&i| format!("{i}")))
+            .chain(triangles11.iter().map(|&i| format!("{i}")))
+            .chain(triangles12.iter().map(|&i| format!("{i}")))
+            .collect();
+
+        let output = Command::new(bin_path())
+            .args(args.clone())
+            .output()
+            .unwrap();
+
+        if output.status.success() {
+            println!("{:?}", args);
+            return;
+        };
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+
+    panic!("No solution");
+}
+
