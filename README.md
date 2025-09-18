@@ -16,5 +16,5 @@ Options:
 - Assumes distinct indices represent distinct vertex positions
 - Assumes face culling will be enabled, so reverse winding is not considered
 - Superexponential in the worst case (O(n!)), however, this is mitigated by the next point
-- Uses recursion to handle backtracking, so stack overflows can occur on large input sets
+- Backtracking handled via recursion, so stack overflows can occur on large input sets
 - False negatives are possible depending on how the vertices are tessellated (e.g., consider two pentagons sharing an edge)
